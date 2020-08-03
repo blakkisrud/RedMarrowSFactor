@@ -7,6 +7,11 @@ University of Florida, combined with ICRP-107-data for nuclide
 information.
 
 29/7/2020: Made classes for the skeletal phantoms. Now can produce workable multiple CF-phantoms with one line of code. Neat!
+3/8/2020: Incorposrated the generator-function into the class declaration.
+
+Bugs:
+
+* Cant index the final multi-CF-frame by CF - get exception.
 
 Needed things:
 
