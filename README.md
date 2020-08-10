@@ -7,19 +7,17 @@ University of Florida, combined with ICRP-107-data for nuclide
 information.
 
 29/7/2020: Made classes for the skeletal phantoms. Now can produce workable multiple CF-phantoms with one line of code. Neat!
-3/8/2020: Incorposrated the generator-function into the class declaration.
+3/8/2020: Incorporated the generator-function into the class declaration.
+6/8/2020: Wrote function to calculate dose directly from a set of inputs on the phantom objects
 
 Bugs:
 
-* Cant index the final multi-CF-frame by CF - get exception.
-
 Needed things:
 
-0) Different CFs in a neat format. Stick with pandas-frame for now? Use pickle-files for persistent data-storage.
+1) Input data-format, best with perhaps an input file? Input now is an excel-file imported as a pandas-frame with named columns. Write function to tack on the absorbed dose?
+* Name of the absorbed-dose column
+* Pandas-frame
+* Call to the calculate-dose-function
 
-1) Input data-format, best with perhaps an input file?
-
-2) Other nuclies, 90-Y, 131-I?
-
-3) Usable interface - see point 1.
+2) Other nuclies, 90-Y, 131-I? Not needed right now. Not needed right now.
 
