@@ -8,9 +8,18 @@ class SkeletalSFactors:
     """ Class containing S-factors for skeletal sites using the phantoms 
         described in 
         
-        ref1 and ref2
-        
-        Used to store data for different skeletal sites and further potentially
+        Hough et al. 2011 (doi: 10.1088/0031-9155/56/8/001
+        O'Reilly et al. 2016 (doi: 10.1088/1361-6560/61/24/8794)
+
+        With the energy spectrum of 177-Lu as described in
+
+        ICRP 107 2008 (doi: 10.1016/j.icrp.2008.10.004)
+
+        Spread-sheet with the values are found in the utils-directory:
+
+        utils/decdataenergies.xlsx
+        utils/saf_values_female_redone.xlsx
+        utils/saf_values_male_redone.xlsx
         
         """
     
@@ -46,8 +55,6 @@ class SkeletalSFactors:
         mass_input = data_frame["Mass"][cf_stringc]
 
 
-        #print(self.calculate_dose(mass = mass, cumulative_activity = cumulative_activity, cf_string = "ICRP", site_name = "Mandibles"))
-
     def calculate_dose(self, mass, cumulative_activity, cf_string, site_name):
 
         """
@@ -60,6 +67,10 @@ class SkeletalSFactors:
         Parameter list:
 
         mass: The mass of the marrow space in g
+        cumulative_activity: The cumulative activity in the marrow 
+        cf_string: Desired cellularity factor in the form "CFXX" where XX is a value in 10-increments between 10 and 100
+        site_name: String containing the name of the skeletal site. The string have to match the names given in the creation
+                   of the phantom class element
         """
 
         # First get the correction factor from the site_name
@@ -103,7 +114,7 @@ class SkeletalSFactors:
         Units for the energy-factors are MeV per disintegration
 
         Changes needed: 
-        1) Naming, some are misleading
+        1) Naming
         2) 
         
         """
@@ -253,7 +264,7 @@ ENERGY_J_PER_MEV = 1.60217662e-13
 
 # Mass density of the marrow
 
-MASS_DENSITY = 1.0 # Should perhaps be 1.03?
+MASS_DENSITY = 1.0 # Could also be set to 1.03
 
 ##===========================================================================================
 ##
@@ -261,55 +272,18 @@ MASS_DENSITY = 1.0 # Should perhaps be 1.03?
 ##
 ##===========================================================================================
 
+print("Loading module...")
+
 import numpy as np
 import pandas as pd
 import openpyxl
 
+# Make a dummy-run to check for assertion errors
 
-print("I did run!")
-
-MaleSkeletal = SkeletalSFactors(isotopename = "177-Lu",
+dummy_skeletal = SkeletalSFactors(isotopename = "177-Lu",
 	phantomsex = "M",
 	saf_file = "utils/saf_values_male_redone.xlsx",
         isotope_file = "utils/decdataenergies.xlsx")
 
-foo = pd.read_excel("../Betalutin/ErebusArticle/analysis/input/lumbardata.xlsx")
-
-#print(MaleSkeletal.add_absorbed_dose_to_pandaframe(data_frame = foo, mass = 150, cumulative_activity = 6.6e12, cf_string = "ICRP", site_name = "LumbarVertebrae"))
-#print(MaleSkeletal.add_absorbed_dose_to_pandaframe(data_frame = foo))
-
-#p_sex = "M"
-#CF_string = "CF100"
-#
-#if p_sex == p_sex:
-#    print("Quelle surprise")
-#
-#    mass = 159.8 # grams
-#    cum = 6.66e12
-#    site_name = "OsCoxae"
-#    cf_value = float(CF_string[2::])/100.0
-#
-#    print(cf_value)
-#
-#    tbc_c = ((MaleSkeletal.trabecular_corrections)[site_name][0])
-#
-#    volume_mass = 0.001*mass*cf_value*(1-tbc_c)
-#
-#    E = ((MaleSkeletal.skeletalfactors)[site_name])["EnergyPerDesintegration"][CF_string]
-#
-#    print(E*ENERGY_J_PER_MEV*cum/volume_mass)
-
-
-
-
-
-#foobar = (MaleSkeletal.skeletalfactors)
-#
-#factor = (foobar["LumbarVertebrae"])
-#
-#ind = factor.index
-#
-#print(factor[ind[1]])
-#
-print("I produced something!")
+print("Loaded")
 
